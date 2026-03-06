@@ -124,14 +124,8 @@ def resolve_image(agent: dict, name: str) -> None:
         print(f"Error: {name} has multiple deployment methods - use only one of 'image', 'build', or 'agentbeats_id'")
         sys.exit(1)
     elif has_image:
-        if os.environ.get("GITHUB_ACTIONS"):
-            print(f"Error: {name} requires 'agentbeats_id' for GitHub Actions (use 'image' or 'build' for local testing only)")
-            sys.exit(1)
         print(f"Using {name} image: {agent['image']}")
     elif has_build:
-        if os.environ.get("GITHUB_ACTIONS"):
-            print(f"Error: {name} requires 'agentbeats_id' for GitHub Actions (use 'image' or 'build' for local testing only)")
-            sys.exit(1)
         build_info = agent['build']
         if isinstance(build_info, dict):
             print(f"Using {name} build: {build_info.get('dockerfile', 'Dockerfile')} in {build_info.get('context', '.')}")
